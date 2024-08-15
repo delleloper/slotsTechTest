@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +13,7 @@ public class RowController : MonoBehaviour
     private float stepHeight;
     private float xPosition;
     private VerticalLayoutGroup verticalLayoutGroup;
+    private string symbols;
 
     public void Awake()
     {
@@ -30,6 +28,17 @@ public class RowController : MonoBehaviour
         spinSpeed = speed;
         startPosition = startPos;
         downLimit = YLimit;
+        foreach (Image item in GetComponentsInChildren<Image>())
+        {
+            if (item.sprite != null)
+            {
+                symbols += item.sprite.name;
+            }
+            else
+            {
+                symbols += "0";
+            }
+        };
     }
 
     public void StartSpinning()
@@ -56,7 +65,6 @@ public class RowController : MonoBehaviour
         }
     }
 
-
     IEnumerator SmoothStop(float targetY, float duration)
     {
         float timeElapsed = 0f;
@@ -68,5 +76,12 @@ public class RowController : MonoBehaviour
             yield return null;
         }
         rectTransform.anchoredPosition = new Vector2(xPosition, targetY);
+    }
+
+    public string GetVisibleSymbols()
+    {
+        int stoppedPosition = Mathf.RoundToInt(rectTransform.anchoredPosition.y / stepHeight);
+        string visibleSymbols = symbols.Substring(stoppedPosition, 3);
+        return visibleSymbols;
     }
 }
