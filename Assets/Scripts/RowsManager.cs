@@ -17,9 +17,9 @@ public class RowsManager : MonoBehaviour
 
     const float RANDOM_SECS_MIN = 2;
     const float RANDOM_SECS_MAX = 2;
-    private string line1;
-    private string line2;
-    private string line3;
+    private string[] lines = new string[3];
+
+    private PatternChecker patternChecker;
 
     Action onRollingStopped;
 
@@ -30,6 +30,19 @@ public class RowsManager : MonoBehaviour
             row.Init(spinSpeed, startPosition, downLimit);
         }
         onRollingStopped += OnSpinStopped;
+
+        patternChecker = new PatternChecker();
+
+        // string[] linesTest = {
+        //     "21382",
+        //     "11111",
+        //     "14578"
+        // };
+        // Debug.Log(patternChecker.CheckLinePattern(linesTest, 0));
+        // Debug.Log(patternChecker.CheckLinePattern(linesTest, 1));
+        // Debug.Log(patternChecker.CheckLinePattern(linesTest, 2));
+
+
     }
 
     IEnumerator StartSpinning()
@@ -58,7 +71,7 @@ public class RowsManager : MonoBehaviour
     {
 
         GetResults();
-        //CHECK PATTERNS;
+        // patternChecker.BasicLineCheck();
         button.interactable = true;
 
     }
@@ -80,9 +93,13 @@ public class RowsManager : MonoBehaviour
             lineBuilder2.Append(results[i][1]);
             lineBuilder3.Append(results[i][2]);
         }
-        line1 = lineBuilder1.ToString();
-        line2 = lineBuilder2.ToString();
-        line3 = lineBuilder3.ToString();
+        lines[0] = lineBuilder1.ToString();
+        lines[1] = lineBuilder2.ToString();
+        lines[2] = lineBuilder3.ToString();
+
+        Debug.Log(patternChecker.CheckLinePattern(lines, 0));
+        Debug.Log(patternChecker.CheckLinePattern(lines, 1));
+        Debug.Log(patternChecker.CheckLinePattern(lines, 2));
     }
 
     public bool CheckLinePattern(string PatternToCheck)
