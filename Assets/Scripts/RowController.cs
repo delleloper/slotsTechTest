@@ -1,26 +1,35 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class RowController : MonoBehaviour
 {
     private bool spinning = false;
-    [SerializeField] private float spinSpeed;
-    [SerializeField] private float startPosition = 417.4f;
-    [SerializeField] private float downLimit = 2466f;
-    [SerializeField] private float symbolHeight;
-    [SerializeField] private VerticalLayoutGroup verticalLayoutGroup;
-    [SerializeField] private RectTransform rectTransform;
-
+    private float spinSpeed;
+    private float startPosition;
+    private float downLimit;
+    private float symbolHeight = 115;
+    private RectTransform rectTransform;
     private float stepHeight;
     private float xPosition;
+    private VerticalLayoutGroup verticalLayoutGroup;
 
     public void Awake()
     {
+        verticalLayoutGroup = GetComponent<VerticalLayoutGroup>();
         rectTransform = (RectTransform)transform;
         stepHeight = symbolHeight + verticalLayoutGroup.spacing;
         xPosition = rectTransform.anchoredPosition.x;
+    }
+
+    public void Init(float speed, float startPos, float YLimit)
+    {
+        spinSpeed = speed;
+        startPosition = startPos;
+        downLimit = YLimit;
     }
 
     public void StartSpinning()
@@ -31,10 +40,7 @@ public class RowController : MonoBehaviour
     public void StopSpin()
     {
         spinning = false;
-        Debug.Log(rectTransform.anchoredPosition.y);
-
         float snappedY = Mathf.Round(rectTransform.anchoredPosition.y / stepHeight) * stepHeight;
-        Debug.Log(snappedY);
         StartCoroutine(SmoothStop(snappedY, 0.5f));
     }
 

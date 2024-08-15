@@ -440,12 +440,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bdd45b887674cb409df8aa6f6909ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spinSpeed: 1000
-  startPosition: 0
-  downLimit: 2600
-  symbolHeight: 115
-  verticalLayoutGroup: {fileID: 111289602}
-  rectTransform: {fileID: 0}
 --- !u!1 &122398247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1618,12 +1612,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bdd45b887674cb409df8aa6f6909ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spinSpeed: 1000
-  startPosition: 0
-  downLimit: 2600
-  symbolHeight: 115
-  verticalLayoutGroup: {fileID: 505360165}
-  rectTransform: {fileID: 0}
 --- !u!1 &509282578
 GameObject:
   m_ObjectHideFlags: 0
@@ -2034,12 +2022,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bdd45b887674cb409df8aa6f6909ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spinSpeed: 1000
-  startPosition: 0
-  downLimit: 2600
-  symbolHeight: 115
-  verticalLayoutGroup: {fileID: 563750217}
-  rectTransform: {fileID: 0}
 --- !u!1 &574076672
 GameObject:
   m_ObjectHideFlags: 0
@@ -5201,12 +5183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bdd45b887674cb409df8aa6f6909ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spinSpeed: 1000
-  startPosition: 0
-  downLimit: 2600
-  symbolHeight: 115
-  verticalLayoutGroup: {fileID: 1428540550}
-  rectTransform: {fileID: 0}
 --- !u!1 &1438438731
 GameObject:
   m_ObjectHideFlags: 0
@@ -5750,12 +5726,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bdd45b887674cb409df8aa6f6909ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spinSpeed: 1000
-  startPosition: 0
-  downLimit: 2600
-  symbolHeight: 115
-  verticalLayoutGroup: {fileID: 1593414353}
-  rectTransform: {fileID: 0}
 --- !u!1 &1601956792
 GameObject:
   m_ObjectHideFlags: 0
@@ -6267,6 +6237,9 @@ MonoBehaviour:
   - {fileID: 505360166}
   button: {fileID: 1709932275}
   rollWait: 1.3
+  spinSpeed: 1000
+  startPosition: 0
+  downLimit: 2600
 --- !u!1 &1703503486
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,9 +8,17 @@ public class RowsManager : MonoBehaviour
     [SerializeField] private List<RowController> rows;
     [SerializeField] private Button button;
     [SerializeField] private float rollWait = 0.8f;
+    [SerializeField] private float spinSpeed;
+    [SerializeField] private float startPosition;
+    [SerializeField] private float downLimit;
 
-
-    // Start is called before the first frame update
+    void Awake()
+    {
+        foreach (RowController row in rows)
+        {
+            row.Init(spinSpeed,startPosition,downLimit);
+        }
+    }
 
     IEnumerator StartSpinning()
     {
@@ -29,11 +37,6 @@ public class RowsManager : MonoBehaviour
         button.interactable = true;
 
     }
-
-    // public void Update()
-    // {
-    //     Debug.Log(((RectTransform)rows[0].transform).anchoredPosition);
-    // }
 
     public void Spin()
     {
