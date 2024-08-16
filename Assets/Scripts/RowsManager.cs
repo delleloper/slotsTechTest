@@ -66,12 +66,11 @@ public class RowsManager : MonoBehaviour
 
     private void OnSpinStopped()
     {
-        GetResults();
-        button.interactable = true;
+        StartCoroutine(GetResults());
     }
 
 
-    public void GetResults()
+    public IEnumerator GetResults()
     {
         List<string> results = new List<string>();
         foreach (RowController row in rows)
@@ -96,7 +95,11 @@ public class RowsManager : MonoBehaviour
         foreach (Result item in matches)
         {
             StartCoroutine(resultsDisplay.ShowResults(item.pattern));
+            yield return new WaitForSeconds(3);
         }
+        resultsDisplay.Clear();
+        button.interactable = true;
     }
+
 
 }

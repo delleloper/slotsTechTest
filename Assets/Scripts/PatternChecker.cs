@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Unity.VisualScripting;
+using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 
 
@@ -77,11 +78,22 @@ public class PatternChecker
             }
         }
 
+
         if (matchingSymbols > 2)
         {
+
+            List<string> newPattern = new List<string>();
+            foreach (string item in pattern)
+            {
+                string newLine = item.Substring(0, matchingSymbols);
+                newLine += new string('0', 5 - newLine.Length);
+                newPattern.Add(newLine);
+            }
+
             Debug.Log(result);
+            Debug.Log(string.Join("|", newPattern));
             Debug.Log("FOUND LINE of " + matchingSymbols + " #" + simbol);
-            results.Add(new Result(simbol, matchingSymbols, pattern));
+            results.Add(new Result(simbol, matchingSymbols, newPattern.ToArray()));
         }
     }
 

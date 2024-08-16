@@ -17,12 +17,12 @@ public class ResultsDisplay : MonoBehaviour
     public IEnumerator ShowResults(string[] symbols)
     {
         Clear();
-        for (int i = 0; i < height; i++)
+        for (int y = 0; y < height; y++)
         {
-            for (int y = 0; y < width; y++)
+            for (int x = 0; x < width; x++)
             {
-                int index = (i * width) + y;
-                if (symbols[i][y] == 'X')
+                int index = (y * width) + x;
+                if (symbols[y][x] == 'X')
                 {
                     yield return new WaitForSeconds(0.1f);
                     Images[index].color = Color.green;
