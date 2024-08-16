@@ -13,10 +13,10 @@ public class RowsManager : MonoBehaviour
     [SerializeField] private float rollWait = 0.8f;
     [SerializeField] private float spinSpeed;
     [SerializeField] private float startPosition;
-    [SerializeField] private float downLimit;
+    [SerializeField] private float limit;
 
     const float RANDOM_SECS_MIN = 2;
-    const float RANDOM_SECS_MAX = 2;
+    const float RANDOM_SECS_MAX = 4;
     private string[] lines = new string[3];
 
     private PatternChecker patternChecker;
@@ -27,38 +27,30 @@ public class RowsManager : MonoBehaviour
 
     void Awake()
     {
+        patternChecker = new PatternChecker();
         foreach (RowController row in rows)
         {
-            row.Init(spinSpeed, startPosition, downLimit);
+            row.Init(spinSpeed, startPosition, limit);
         }
         onRollingStopped += OnSpinStopped;
-
-        patternChecker = new PatternChecker();
-
-        // string[] linesTest = {
-        //     "21382",
-        //     "11111",
-        //     "14578"
-        // };
-        // Debug.Log(patternChecker.CheckLinePattern(linesTest, 0));
-        // Debug.Log(patternChecker.CheckLinePattern(linesTest, 1));
-        // Debug.Log(patternChecker.CheckLinePattern(linesTest, 2));
-
-
+        OnSpinStopped();//DELETE THIS
     }
 
     IEnumerator StartSpinning()
     {
+        Random.InitState(System.DateTime.Now.Millisecond);
+        float time = Random.Range(RANDOM_SECS_MIN, RANDOM_SECS_MAX);
+        Debug.Log(time);
         foreach (RowController row in rows)
         {
             row.StartSpinning();
             yield return new WaitForSeconds(rollWait);
         }
-        yield return new WaitForSeconds(rollWait);
+        yield return new WaitForSeconds(time);
         foreach (RowController row in rows)
         {
-            yield return new WaitForSeconds(Random.Range(RANDOM_SECS_MIN, RANDOM_SECS_MAX));
             row.StopSpin();
+            yield return new WaitForSeconds(rollWait);
         }
         onRollingStopped.Invoke();
     }
@@ -99,16 +91,12 @@ public class RowsManager : MonoBehaviour
         lines[1] = lineBuilder2.ToString();
         lines[2] = lineBuilder3.ToString();
 
-        List<Result> matches = patternChecker.CheckLines(lines);
+
+        List<Result> matches = patternChecker.CheckAllPatterns(lines);
         foreach (Result item in matches)
         {
-            resultsDisplay.ShowResults(item.pattern);
+            StartCoroutine(resultsDisplay.ShowResults(item.pattern));
         }
-    }
-
-    public bool CheckLinePattern(string PatternToCheck)
-    {
-        return false;
     }
 
 }

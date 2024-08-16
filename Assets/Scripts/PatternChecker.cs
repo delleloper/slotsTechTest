@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Text;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -19,67 +21,75 @@ public struct Result
 public class PatternChecker
 {
     public List<Result> results = new List<Result>();
-    private static string[] patternA = { "XXXXX", "00000", "00000" };
-    private static string[] patternB = { "00000", "XXXXX", "00000" };
-    private static string[] patternC = { "00000", "00000", "XXXXX" };
-    // private static string[] patternD = { "0X0X0", "00000", "X0X0X" };
-    // private static string[] patternE = { "X0X0X", "00000", "0X0X0" };
-    // private static string[] patternF = { "X000X", "0X0X0", "00X00" };
-    // private static string[] patternG = { "00X00", "0X0X0", "X000X" };
-    // private static string[] patternH = { "XX000", "00X00", "000XX" };
-    // private static string[] patternI = { "000XX", "00X00", "XX000" };
-
+    private static string[] patternA = { "0X0X0", "00000", "X0X0X" };
+    private static string[] patternB = { "X0X0X", "00000", "0X0X0" };
+    private static string[] patternC = { "X000X", "0X0X0", "00X00" };
+    private static string[] patternD = { "00X00", "0X0X0", "X000X" };
+    private static string[] patternE = { "XX000", "00X00", "000XX" };
+    private static string[] patternF = { "000XX", "00X00", "XX000" };
+    //You can add new patterns and add them to the list!
     private List<string[]> allPatterns = new List<string[]> {
-        patternA,patternB,patternC,//patternD,patternE,patternF,patternG,patternH, patternI
+        patternA,patternB,patternC,patternD,patternE, patternF
     };
-    private bool matched;
-    private int matchingSymbols;
-    private char symbolMatching;
-    // public int CheckLinePattern(string[] symbols, string[] PatternToCheck)
-    // {
-    //     matchingSymbols = 0;
-    //     symbolMatching = '0';
-    //     matched = false;
 
-    //     for (int i = 0; i < symbols.Length; i++)
-    //     {
-    //         string currentRow = symbols[i];
-    //         string currentPaternRow = PatternToCheck[i];
+    public List<Result> CheckAllPatterns(string[] symbols)
+    {
+        CheckLines(symbols);
+        foreach (string[] pattern in allPatterns)
+        {
+            CheckLinePattern(symbols, pattern);
+        }
+        if (results.Count > 0)
+        {
+            Debug.Log("fgffgdff");
+        }
+        return results;
+    }
+    public void CheckLinePattern(string[] symbols, string[] pattern)
+    {
+        StringBuilder lineBuilder = new StringBuilder();
 
-    //         Debug.Log("-----------------Start Section" + (i + 1) + "---------------------");
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                if (pattern[i][j] == 'X')
+                {
+                    lineBuilder.Append(symbols[i][j]);
+                }
+            }
+        }
+        string result = lineBuilder.ToString();
+        Debug.Log(result);
+        char simbol = result[0];
+        int matchingSymbols = 0;
+        bool stop = false;
+        for (int i = 0; i < 5; i++)
+        {
+            if (result[i] == simbol)
+            {
+                matchingSymbols += 1;
+            }
+            else
+            {
+                stop = true;
+                break;
+            }
+        }
 
-    //         Debug.Log("currentRow: " + currentRow);
-    //         Debug.Log("currentPaternToCHeck: " + currentPaternRow);
+        if (stop || matchingSymbols < 2)
+        {
+            Debug.Log("LINE NOT FOUND");
+        }
+        else
+        {
+            Debug.Log("FOUND LINE of " + matchingSymbols + " #" + simbol);
 
-    //         symbolMatching = currentRow[0];
-    //         currentPaternRow = currentPaternRow.Replace('X', symbolMatching);
+            results.Add(new Result(simbol, matchingSymbols, pattern));
+        }
+    }
 
-    //         Debug.Log("currentPaternRow: " + currentPaternRow);
 
-    //         for (int j = 0; j < currentPaternRow.Length; j++)
-    //         {
-
-    //             if (currentPaternRow[j] == currentRow[j])
-    //             {
-    //                 matchingSymbols++;
-    //             }
-    //             else
-    //             {
-    //                 if (matchingSymbols < 2)
-    //                 {
-    //                     Debug.Log("-----------------END Section" + (i + 1) + "---------------------");
-    //                     return matchingSymbols;
-
-    //                 }
-    //             }
-    //         }
-    //         Debug.Log("-----------------END Section" + (i + 1) + "---------------------");
-    //     }
-    //     Debug.Log("found " + symbolMatching + " " + matchingSymbols + " times");
-
-    //     return matchingSymbols;
-
-    // }
 
     public List<Result> CheckLines(string[] symbols)
     {
@@ -143,19 +153,4 @@ public class PatternChecker
 
         return pattern;
     }
-
-    // public int CheckAllPatterns(string[] symbols)
-    // {
-    //     int Count = 0;
-    //     foreach (string[] pattern in allPatterns)
-    //     {
-    //         if (CheckLinePattern(symbols, pattern) > 2)
-    //         {
-    //             Debug.Log("Match");
-
-    //         }
-    //     }
-
-    //     return 0;
-    // }
 }

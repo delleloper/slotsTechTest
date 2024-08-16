@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,30 +8,23 @@ public class RowController : MonoBehaviour
     private bool spinning = false;
     private float spinSpeed;
     private float startPosition;
-    private float downLimit;
+    private float limit;
     private float symbolHeight = 115;
     private RectTransform rectTransform;
     private float stepHeight;
     private float xPosition;
     private VerticalLayoutGroup verticalLayoutGroup;
     private string symbols;
-
+    public bool debug = false;
     public void Awake()
     {
         verticalLayoutGroup = GetComponent<VerticalLayoutGroup>();
         rectTransform = (RectTransform)transform;
         stepHeight = symbolHeight + verticalLayoutGroup.spacing;
         xPosition = rectTransform.anchoredPosition.x;
-    }
-
-    public void Init(float speed, float startPos, float YLimit)
-    {
-        spinSpeed = speed;
-        startPosition = startPos;
-        downLimit = YLimit;
         foreach (Image item in GetComponentsInChildren<Image>())
         {
-            if (item.sprite != null)
+            if (item.gameObject.activeInHierarchy && item.sprite != null)
             {
                 symbols += item.sprite.name;
             }
@@ -39,13 +33,19 @@ public class RowController : MonoBehaviour
                 symbols += "0";
             }
         };
-        float randomStartPos = Random.Range(0, 14) * stepHeight;
-        rectTransform.anchoredPosition = new Vector2(xPosition, randomStartPos);
+    }
 
+    public void Init(float speed, float startPos, float YLimit)
+    {
+        spinSpeed = speed;
+        startPosition = startPos;
+        limit = YLimit;
     }
 
     public void StartSpinning()
     {
+        // float randomStartPos = Random.Range(0, ) * stepHeight;
+        // rectTransform.anchoredPosition = new Vector2(xPosition, randomStartPos);
         spinning = true;
     }
 
@@ -60,11 +60,15 @@ public class RowController : MonoBehaviour
     {
         if (spinning)
         {
-            rectTransform.anchoredPosition -= spinSpeed * Time.deltaTime * Vector2.down;
+            rectTransform.anchoredPosition -= spinSpeed * Vector2.up;
         }
-        if (transform.position.y >= downLimit)
+        if (rectTransform.anchoredPosition.y <= limit)
         {
             rectTransform.anchoredPosition = new Vector2(xPosition, startPosition);
+        }
+        if (debug)
+        {
+            Debug.Log(GetVisibleSymbols());
         }
     }
 
@@ -78,13 +82,27 @@ public class RowController : MonoBehaviour
             rectTransform.anchoredPosition = new Vector2(xPosition, newY);
             yield return null;
         }
-        rectTransform.anchoredPosition = new Vector2(xPosition, targetY);
     }
 
     public string GetVisibleSymbols()
     {
-        int stoppedPosition = Mathf.RoundToInt(rectTransform.anchoredPosition.y / stepHeight);
-        string visibleSymbols = symbols.Substring(stoppedPosition, 3);
+        int stoppedPosition = GetSnappedPosId();
+        string visibleSymbols = WrappedSubstring(symbols, stoppedPosition);
         return visibleSymbols;
+    }
+
+    public string WrappedSubstring(string symbols, int startIndex)
+    {
+        int totalLength = symbols.Length;
+
+        string wrappedSymbols = symbols + symbols;
+        startIndex = startIndex % totalLength;
+        return wrappedSymbols.Substring(startIndex, 3);
+    }
+
+
+    private int GetSnappedPosId()
+    {
+        return Mathf.RoundToInt(rectTransform.anchoredPosition.y / stepHeight);
     }
 }

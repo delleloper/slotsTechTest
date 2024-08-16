@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,8 +14,9 @@ public class ResultsDisplay : MonoBehaviour
         Images = GetComponentsInChildren<Image>().ToList();
     }
 
-    public void ShowResults(string[] symbols)
+    public IEnumerator ShowResults(string[] symbols)
     {
+        Clear();
         for (int i = 0; i < height; i++)
         {
             for (int y = 0; y < width; y++)
@@ -22,12 +24,12 @@ public class ResultsDisplay : MonoBehaviour
                 int index = (i * width) + y;
                 if (symbols[i][y] == 'X')
                 {
+                    yield return new WaitForSeconds(0.1f);
                     Images[index].color = Color.green;
                 }
                 else
                 {
                     Images[index].color = Color.clear;
-
                 }
             }
         }

@@ -474,7 +474,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -15, y: 0}
+  m_AnchoredPosition: {x: -15, y: 2100}
   m_SizeDelta: {x: 112, y: 2500}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &111289602
@@ -515,6 +515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bdd45b887674cb409df8aa6f6909ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
 --- !u!1 &122398247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1798,7 +1799,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 335, y: 0}
+  m_AnchoredPosition: {x: 335, y: 2100}
   m_SizeDelta: {x: 112, y: 2500}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &505360165
@@ -1839,6 +1840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bdd45b887674cb409df8aa6f6909ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
 --- !u!1 &509282578
 GameObject:
   m_ObjectHideFlags: 0
@@ -2208,7 +2210,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -366, y: 0}
+  m_AnchoredPosition: {x: -366, y: 2100}
   m_SizeDelta: {x: 112, y: 2500}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &563750217
@@ -2249,6 +2251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bdd45b887674cb409df8aa6f6909ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 1
 --- !u!1 &574076672
 GameObject:
   m_ObjectHideFlags: 0
@@ -2374,7 +2377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3655,7 +3658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4405,7 +4408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5455,7 +5458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5982,7 +5985,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -190, y: 0}
+  m_AnchoredPosition: {x: -190, y: 2100}
   m_SizeDelta: {x: 112, y: 2500}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1428540550
@@ -6023,6 +6026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bdd45b887674cb409df8aa6f6909ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
 --- !u!1 &1438438731
 GameObject:
   m_ObjectHideFlags: 0
@@ -6600,7 +6604,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 156, y: 0}
+  m_AnchoredPosition: {x: 156, y: 2100}
   m_SizeDelta: {x: 112, y: 2500}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1593414353
@@ -6641,6 +6645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bdd45b887674cb409df8aa6f6909ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
 --- !u!1 &1601956792
 GameObject:
   m_ObjectHideFlags: 0
@@ -7204,7 +7209,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 11.576, y: -8}
+  m_AnchoredPosition: {x: 11.576, y: 0}
   m_SizeDelta: {x: 1124.2, y: 519.94}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1703394396
@@ -7227,10 +7232,10 @@ MonoBehaviour:
   - {fileID: 505360166}
   button: {fileID: 1709932275}
   rollWait: 0.5
-  spinSpeed: 1000
-  startPosition: 0
-  downLimit: 2600
-  resultsDisplay: {fileID: 0}
+  spinSpeed: 5
+  startPosition: 2100
+  limit: 0
+  resultsDisplay: {fileID: 718855263}
 --- !u!1 &1703503486
 GameObject:
   m_ObjectHideFlags: 0
