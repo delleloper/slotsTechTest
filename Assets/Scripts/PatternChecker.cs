@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -48,22 +51,20 @@ public class PatternChecker
     public void CheckLinePattern(string[] symbols, string[] pattern)
     {
         StringBuilder lineBuilder = new StringBuilder();
-
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 5; i++)
         {
-            for (int j = 0; j < 5; j++)
+            for (int j = 0; j < 3; j++)
             {
-                if (pattern[i][j] == 'X')
+                if (pattern[j][i] == 'X')
                 {
-                    lineBuilder.Append(symbols[i][j]);
+                    lineBuilder.Append(symbols[j][i]);
                 }
             }
         }
         string result = lineBuilder.ToString();
-        Debug.Log(result);
         char simbol = result[0];
         int matchingSymbols = 0;
-        bool stop = false;
+
         for (int i = 0; i < 5; i++)
         {
             if (result[i] == simbol)
@@ -72,19 +73,14 @@ public class PatternChecker
             }
             else
             {
-                stop = true;
                 break;
             }
         }
 
-        if (stop || matchingSymbols < 2)
+        if (matchingSymbols > 2)
         {
-            Debug.Log("LINE NOT FOUND");
-        }
-        else
-        {
+            Debug.Log(result);
             Debug.Log("FOUND LINE of " + matchingSymbols + " #" + simbol);
-
             results.Add(new Result(simbol, matchingSymbols, pattern));
         }
     }
@@ -104,7 +100,6 @@ public class PatternChecker
 
     public void CheckLine(string[] symbols, int row)
     {
-        bool stop = false;
         var simbol = symbols[row][0];
         int matchingSymbols = 0;
         for (int x = 0; x < 5; x++)
@@ -115,16 +110,11 @@ public class PatternChecker
             }
             else
             {
-                stop = true;
                 break;
             }
         }
 
-        if (stop && matchingSymbols < 2)
-        {
-            Debug.Log("LINE NOT FOUND");
-        }
-        else
+        if (matchingSymbols > 2)
         {
             Debug.Log("FOUND LINE of " + matchingSymbols + " #" + simbol);
 
@@ -153,4 +143,7 @@ public class PatternChecker
 
         return pattern;
     }
+
+
+
 }

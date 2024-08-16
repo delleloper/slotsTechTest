@@ -16,6 +16,7 @@ public class RowController : MonoBehaviour
     private VerticalLayoutGroup verticalLayoutGroup;
     private string symbols;
     public bool debug = false;
+
     public void Awake()
     {
         verticalLayoutGroup = GetComponent<VerticalLayoutGroup>();
@@ -33,6 +34,8 @@ public class RowController : MonoBehaviour
                 symbols += "0";
             }
         };
+        // float randomStartPos = Random.Range(0, 14) * stepHeight;
+        // rectTransform.anchoredPosition = new Vector2(xPosition, randomStartPos);
     }
 
     public void Init(float speed, float startPos, float YLimit)
@@ -44,8 +47,7 @@ public class RowController : MonoBehaviour
 
     public void StartSpinning()
     {
-        // float randomStartPos = Random.Range(0, ) * stepHeight;
-        // rectTransform.anchoredPosition = new Vector2(xPosition, randomStartPos);
+
         spinning = true;
     }
 
