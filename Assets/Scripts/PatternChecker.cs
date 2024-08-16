@@ -1,12 +1,24 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
+
+
+public struct Result
+{
+    public char symbol;
+    public int length;
+    public string[] pattern;
+    public Result(char symbol, int length, string[] pattern)
+    {
+        this.symbol = symbol;
+        this.length = length;
+        this.pattern = pattern;
+    }
+}
+
 
 public class PatternChecker
 {
-
+    public List<Result> results = new List<Result>();
     private static string[] patternA = { "XXXXX", "00000", "00000" };
     private static string[] patternB = { "00000", "XXXXX", "00000" };
     private static string[] patternC = { "00000", "00000", "XXXXX" };
@@ -69,7 +81,18 @@ public class PatternChecker
 
     // }
 
-    public bool CheckLinePattern(string[] symbols, int row)
+    public List<Result> CheckLines(string[] symbols)
+    {
+        results = new List<Result>();
+        for (int i = 0; i < 3; i++)
+        {
+            CheckLine(symbols, i);
+        }
+        return results;
+    }
+
+
+    public void CheckLine(string[] symbols, int row)
     {
         bool stop = false;
         var simbol = symbols[row][0];
@@ -94,10 +117,32 @@ public class PatternChecker
         else
         {
             Debug.Log("FOUND LINE of " + matchingSymbols + " #" + simbol);
+
+            results.Add(new Result(simbol, matchingSymbols, GenerateWinningPattern(row, matchingSymbols)));
         }
-        return matchingSymbols > 2;
     }
 
+
+    string[] GenerateWinningPattern(int row, int matchingSymbols)
+    {
+        string[] pattern = { "00000", "00000", "00000" };
+
+        char[] rows = pattern[row].ToCharArray();
+        int replaced = 0;
+
+        for (int j = 0; j < rows.Length && replaced < matchingSymbols; j++)
+        {
+            if (rows[j] == '0')
+            {
+                rows[j] = 'X';
+                replaced++;
+            }
+        }
+
+        pattern[row] = new string(rows);
+
+        return pattern;
+    }
 
     // public int CheckAllPatterns(string[] symbols)
     // {

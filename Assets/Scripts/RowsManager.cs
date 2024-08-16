@@ -20,6 +20,8 @@ public class RowsManager : MonoBehaviour
     private string[] lines = new string[3];
 
     private PatternChecker patternChecker;
+    [SerializeField] private ResultsDisplay resultsDisplay;
+
 
     Action onRollingStopped;
 
@@ -63,17 +65,17 @@ public class RowsManager : MonoBehaviour
 
     public void Spin()
     {
+        resultsDisplay.Clear();
         StartCoroutine(nameof(StartSpinning));
         button.interactable = false;
+
     }
+
 
     private void OnSpinStopped()
     {
-
         GetResults();
-        // patternChecker.BasicLineCheck();
         button.interactable = true;
-
     }
 
 
@@ -97,9 +99,11 @@ public class RowsManager : MonoBehaviour
         lines[1] = lineBuilder2.ToString();
         lines[2] = lineBuilder3.ToString();
 
-        Debug.Log(patternChecker.CheckLinePattern(lines, 0));
-        Debug.Log(patternChecker.CheckLinePattern(lines, 1));
-        Debug.Log(patternChecker.CheckLinePattern(lines, 2));
+        List<Result> matches = patternChecker.CheckLines(lines);
+        foreach (Result item in matches)
+        {
+            resultsDisplay.ShowResults(item.pattern);
+        }
     }
 
     public bool CheckLinePattern(string PatternToCheck)

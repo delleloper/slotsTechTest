@@ -39,6 +39,9 @@ public class RowController : MonoBehaviour
                 symbols += "0";
             }
         };
+        float randomStartPos = Random.Range(0, 14) * stepHeight;
+        rectTransform.anchoredPosition = new Vector2(xPosition, randomStartPos);
+
     }
 
     public void StartSpinning()
