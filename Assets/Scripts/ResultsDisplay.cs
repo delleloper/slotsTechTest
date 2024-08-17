@@ -49,7 +49,7 @@ public class ResultsDisplay : MonoBehaviour
         while (oldValue != credits)
         {
             oldValue++;
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.02f);
             creditsLabel.text = oldValue.ToString().PadLeft(5, '0');
         }
     }
