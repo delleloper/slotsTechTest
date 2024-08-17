@@ -34,7 +34,8 @@ public class PatternChecker
     private static string[] patternD = { "00X00", "0X0X0", "X000X" };
     private static string[] patternE = { "XX000", "00X00", "000XX" };
     private static string[] patternF = { "000XX", "00X00", "XX000" };
-    //You can add new patterns and add them to the list!
+    
+    //You can add new patterns following this format and add them to the list!
     private List<string[]> allPatterns = new List<string[]> {
         patternA,patternB,patternC,patternD,patternE, patternF
     };
