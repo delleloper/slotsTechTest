@@ -33,7 +33,6 @@ public class RowsManager : MonoBehaviour
             row.Init(spinSpeed, startPosition, limit);
         }
         onRollingStopped += OnSpinStopped;
-        OnSpinStopped();//DELETE THIS
     }
 
     IEnumerator StartSpinning()
@@ -95,7 +94,8 @@ public class RowsManager : MonoBehaviour
         foreach (Result item in matches)
         {
             StartCoroutine(resultsDisplay.ShowResults(item.pattern));
-            yield return new WaitForSeconds(3);
+            StartCoroutine(resultsDisplay.AddCredits(item.score));
+            yield return new WaitForSeconds(2);
         }
         resultsDisplay.Clear();
         button.interactable = true;

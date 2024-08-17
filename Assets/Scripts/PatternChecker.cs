@@ -13,11 +13,14 @@ public struct Result
     public char symbol;
     public int length;
     public string[] pattern;
-    public Result(char symbol, int length, string[] pattern)
+    public int score;
+    public Result(char symbol, int length, string[] pattern, int score)
     {
         this.symbol = symbol;
         this.length = length;
         this.pattern = pattern;
+        this.score = score;
+
     }
 }
 
@@ -79,7 +82,7 @@ public class PatternChecker
         }
 
 
-        if (matchingSymbols > 2)
+        if (matchingSymbols >= 2)
         {
 
             List<string> newPattern = new List<string>();
@@ -93,7 +96,7 @@ public class PatternChecker
             Debug.Log(result);
             Debug.Log(string.Join("|", newPattern));
             Debug.Log("FOUND LINE of " + matchingSymbols + " #" + simbol);
-            results.Add(new Result(simbol, matchingSymbols, newPattern.ToArray()));
+            results.Add(new Result(simbol, matchingSymbols, newPattern.ToArray(), CalculateScore(simbol, matchingSymbols)));
         }
     }
 
@@ -126,13 +129,32 @@ public class PatternChecker
             }
         }
 
-        if (matchingSymbols > 2)
+        if (matchingSymbols >= 2)
         {
+
             Debug.Log("FOUND LINE of " + matchingSymbols + " #" + simbol);
 
-            results.Add(new Result(simbol, matchingSymbols, GenerateWinningPattern(row, matchingSymbols)));
+            results.Add(new Result(simbol, matchingSymbols, GenerateWinningPattern(row, matchingSymbols), CalculateScore(simbol, matchingSymbols)));
         }
     }
+
+    Dictionary<char, int[]> symbolScores = new Dictionary<char, int[]>
+    {
+        { '1', new[] { 25, 50, 75, 100 } },
+        { '2', new[] { 10, 20, 30, 60 } },
+        { '3', new[] { 5, 10, 20, 50 } },
+        { '4', new[] { 5, 10, 20, 40 } },
+        { '5', new[] { 5, 10, 15, 30 } },
+        { '6', new[] { 2, 5, 10, 20 } },
+        { '7', new[] { 1, 2, 5, 10 } }
+    };
+
+
+    int CalculateScore(char symbol, int amount)
+    {
+        return symbolScores[symbol][amount - 2];
+    }
+
 
 
     string[] GenerateWinningPattern(int row, int matchingSymbols)
