@@ -39,7 +39,6 @@ public class RowsManager : MonoBehaviour
     {
         Random.InitState(System.DateTime.Now.Millisecond);
         float time = Random.Range(RANDOM_SECS_MIN, RANDOM_SECS_MAX);
-        Debug.Log(time);
         foreach (RowController row in rows)
         {
             row.StartSpinning();

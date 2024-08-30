@@ -42,15 +42,12 @@ public class PatternChecker
 
     public List<Result> CheckAllPatterns(string[] symbols)
     {
-        CheckLines(symbols);
+        results = new List<Result>();
         foreach (string[] pattern in allPatterns)
         {
             CheckLinePattern(symbols, pattern);
         }
-        if (results.Count > 0)
-        {
-            Debug.Log("fgffgdff");
-        }
+        CheckLines(symbols);
         return results;
     }
     public void CheckLinePattern(string[] symbols, string[] pattern)
@@ -105,7 +102,7 @@ public class PatternChecker
 
     public List<Result> CheckLines(string[] symbols)
     {
-        results = new List<Result>();
+
         for (int i = 0; i < 3; i++)
         {
             CheckLine(symbols, i);
