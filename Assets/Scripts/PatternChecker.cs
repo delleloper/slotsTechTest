@@ -20,10 +20,38 @@ public struct Result
         this.length = length;
         this.pattern = pattern;
         this.score = score;
-
     }
 }
 
+public class ResultComparer : IEqualityComparer<Result>
+{
+    public bool Equals(Result x, Result y)
+    {
+        if (x.symbol != y.symbol || x.length != y.length || x.score != y.score)
+            return false;
+
+        if (x.pattern.Length != y.pattern.Length)
+            return false;
+
+        for (int i = 0; i < x.pattern.Length; i++)
+        {
+            if (x.pattern[i] != y.pattern[i])
+                return false;
+        }
+        return true;
+    }
+    public int GetHashCode(Result obj)
+    {
+        int hash = obj.symbol.GetHashCode();
+        hash = (hash * 31) + obj.length.GetHashCode();
+        hash = (hash * 31) + obj.score.GetHashCode();
+        foreach (string str in obj.pattern)
+        {
+            hash = (hash * 31) + (str?.GetHashCode() ?? 0);
+        }
+        return hash;
+    }
+}
 
 public class PatternChecker
 {
@@ -34,7 +62,7 @@ public class PatternChecker
     private static string[] patternD = { "00X00", "0X0X0", "X000X" };
     private static string[] patternE = { "XX000", "00X00", "000XX" };
     private static string[] patternF = { "000XX", "00X00", "XX000" };
-    
+
     //You can add new patterns following this format and add them to the list!
     private List<string[]> allPatterns = new List<string[]> {
         patternA,patternB,patternC,patternD,patternE, patternF
@@ -48,8 +76,14 @@ public class PatternChecker
             CheckLinePattern(symbols, pattern);
         }
         CheckLines(symbols);
+        if (results.Count >= 2)
+        {
+            results = results.Distinct(new ResultComparer()).ToList();
+        }
         return results;
     }
+
+
     public void CheckLinePattern(string[] symbols, string[] pattern)
     {
         StringBuilder lineBuilder = new StringBuilder();
@@ -91,9 +125,9 @@ public class PatternChecker
                 newPattern.Add(newLine);
             }
 
-            Debug.Log(result);
-            Debug.Log(string.Join("|", newPattern));
-            Debug.Log("FOUND LINE of " + matchingSymbols + " #" + simbol);
+            // Debug.Log(result);
+            // Debug.Log(string.Join("|", newPattern));
+            // Debug.Log("FOUND LINE of " + matchingSymbols + " #" + simbol);
             results.Add(new Result(simbol, matchingSymbols, newPattern.ToArray(), CalculateScore(simbol, matchingSymbols)));
         }
     }
@@ -102,7 +136,6 @@ public class PatternChecker
 
     public List<Result> CheckLines(string[] symbols)
     {
-
         for (int i = 0; i < 3; i++)
         {
             CheckLine(symbols, i);
@@ -129,9 +162,7 @@ public class PatternChecker
 
         if (matchingSymbols >= 2)
         {
-
-            Debug.Log("FOUND LINE of " + matchingSymbols + " #" + simbol);
-
+            // Debug.Log("FOUND LINE of " + matchingSymbols + " #" + simbol);
             results.Add(new Result(simbol, matchingSymbols, GenerateWinningPattern(row, matchingSymbols), CalculateScore(simbol, matchingSymbols)));
         }
     }

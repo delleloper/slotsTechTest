@@ -14,14 +14,12 @@ public class RowsManager : MonoBehaviour
     [SerializeField] private float spinSpeed;
     [SerializeField] private float startPosition;
     [SerializeField] private float limit;
+    [SerializeField] private ResultsDisplay resultsDisplay;
 
     const float RANDOM_SECS_MIN = 2;
     const float RANDOM_SECS_MAX = 4;
     private string[] lines = new string[3];
-
     private PatternChecker patternChecker;
-    [SerializeField] private ResultsDisplay resultsDisplay;
-
 
     Action onRollingStopped;
 
@@ -58,7 +56,6 @@ public class RowsManager : MonoBehaviour
         resultsDisplay.Clear();
         StartCoroutine(nameof(StartSpinning));
         button.interactable = false;
-
     }
 
 
@@ -66,7 +63,6 @@ public class RowsManager : MonoBehaviour
     {
         StartCoroutine(GetResults());
     }
-
 
     public IEnumerator GetResults()
     {
@@ -88,7 +84,6 @@ public class RowsManager : MonoBehaviour
         lines[1] = lineBuilder2.ToString();
         lines[2] = lineBuilder3.ToString();
 
-
         List<Result> matches = patternChecker.CheckAllPatterns(lines);
         foreach (Result item in matches)
         {
@@ -99,6 +94,5 @@ public class RowsManager : MonoBehaviour
         resultsDisplay.Clear();
         button.interactable = true;
     }
-
 
 }
